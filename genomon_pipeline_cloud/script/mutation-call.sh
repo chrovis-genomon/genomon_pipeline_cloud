@@ -70,16 +70,16 @@ else
 fi 
 
 # HGVD annotations
-if [ _${ACTIVE_HGVD_2016_FLAG} = "_True" ]; then 
-    mutanno mutation -t ${OUTPUT_PREF}.simplerepeat_mutations.txt -o ${OUTPUT_PREF}.HGVD_2016.txt -d ${ANNOTATION_DB}/DBexome20160412.bed.gz -c 5
+if [ _${ACTIVE_HGVD_2017_FLAG} = "_True" ]; then 
+    mutanno mutation -t ${OUTPUT_PREF}.simplerepeat_mutations.txt -o ${OUTPUT_PREF}.HGVD_2017.txt -d ${ANNOTATION_DB}/DBexome20170802.bed.gz -c 5
 else
-    cp ${OUTPUT_PREF}.simplerepeat_mutations.txt ${OUTPUT_PREF}.HGVD_2016.txt
+    cp ${OUTPUT_PREF}.simplerepeat_mutations.txt ${OUTPUT_PREF}.HGVD_2017.txt
 fi
 # ExAC annotations
 if [ _${ACTIVE_EXAC_FLAG} = "_True" ]; then 
-    mutanno mutation -t ${OUTPUT_PREF}.HGVD_2016.txt -o ${OUTPUT_PREF}.ExAC.txt -d ${ANNOTATION_DB}/ExAC.r0.3.1.sites.vep.bed.gz -c 8
+    mutanno mutation -t ${OUTPUT_PREF}.HGVD_2017.txt -o ${OUTPUT_PREF}.ExAC.txt -d ${ANNOTATION_DB}/ExAC.r0.3.1.sites.vep.bed.gz -c 8
 else
-    cp ${OUTPUT_PREF}.HGVD_2016.txt ${OUTPUT_PREF}.ExAC.txt
+    cp ${OUTPUT_PREF}.HGVD_2017.txt ${OUTPUT_PREF}.ExAC.txt
 fi
 
 cp ${OUTPUT_PREF}.ExAC.txt ${OUTPUT_PREF}.mutations_candidate.txt
@@ -101,9 +101,9 @@ fi
 tmp_header=`echo $mut_header | tr "," "\t"`
 print_header=${tmp_header}
 
-if [ _${ACTIVE_HGVD_2016_FLAG} = "_True" ]
+if [ _${ACTIVE_HGVD_2017_FLAG} = "_True" ]
 then
-    HGVD_header="HGVD_20160412:#Sample,HGVD_20160412:Filter,HGVD_20160412:NR,HGVD_20160412:NA,HGVD_20160412:Frequency(NA/(NA+NR))"
+    HGVD_header="HGVD_20170802:#Sample,HGVD_20170802:Filter,HGVD_20170802:NR,HGVD_20170802:NA,HGVD_20170802:Frequency(NA/(NA+NR))"
     tmp_header=`echo $HGVD_header | tr "," "\t"`
     print_header=`echo -e "${print_header}\t${tmp_header}"`
 fi
@@ -127,7 +127,7 @@ else
 fi
 
 rm -f ${OUTPUT_PREF}.ExAC.txt
-rm -f ${OUTPUT_PREF}.HGVD_2016.txt
+rm -f ${OUTPUT_PREF}.HGVD_2017.txt
 rm -f ${OUTPUT_PREF}.breakpoint_mutations.txt
 rm -f ${OUTPUT_PREF}.fisher_hotspot_mutations.txt
 rm -f ${OUTPUT_PREF}.fisher_mutations.txt

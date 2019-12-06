@@ -48,7 +48,7 @@ class Mutation_call(abstract_task.Abstract_task):
                                   "--env BREAKPOINT_OPTION",
                                   "--env FILTER_PAIR_OPTION",
                                   "--env FILTER_SINGLE_OPTION",
-                                  "--env ACTIVE_HGVD_2016_FLAG",
+                                  "--env ACTIVE_HGVD_2017_FLAG",
                                   "--env ACTIVE_EXAC_FLAG"]) 
                                   + "\n")
 
@@ -94,7 +94,7 @@ class Mutation_call(abstract_task.Abstract_task):
                                       param_conf.get("mutation_call", "breakpoint_option"),
                                       param_conf.get("mutation_call", "filter_pair_option"),
                                       param_conf.get("mutation_call", "filter_single_option"),
-                                      param_conf.get("mutation_call", "active_hgvd_2016_flag"),
+                                      param_conf.get("mutation_call", "active_hgvd_2017_flag"),
                                       param_conf.get("mutation_call", "active_exac_flag")]) 
                                       + "\n")
 
