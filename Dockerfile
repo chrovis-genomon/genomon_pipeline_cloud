@@ -5,7 +5,7 @@ RUN apt-get update && \
   pip install awscli==1.17.9 boto3==1.11.9 pyyaml==5.2 && \
   apt-get clean && \
   rm -rf /var/lib/apt/lists/* && \
-  git clone --depth=1 -b v0.0.17 https://github.com/aokad/ecsub.git && \
+  git clone --depth=1 -b spike/merge https://github.com/alumi/ecsub.git && \
   rm -rf /root/ecsub/.git
 
 FROM python:3.8.1-slim-buster
