@@ -5,7 +5,7 @@ RUN apt-get update && \
   pip install awscli==1.18.79 boto3==1.14.2 pyyaml==5.3.1 && \
   apt-get clean && \
   rm -rf /var/lib/apt/lists/* && \
-  git clone --depth=1 -b v0.0.18 https://github.com/aokad/ecsub.git && \
+  git clone --depth=1 -b spike/merge https://github.com/chrovis/ecsub.git && \
   rm -rf /root/ecsub/.git
 
 FROM python:3.8.3-slim-buster AS genomon_pipeline_cloud
