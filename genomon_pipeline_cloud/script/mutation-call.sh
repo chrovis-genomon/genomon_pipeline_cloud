@@ -5,9 +5,10 @@ set -o nounset
 
 export PATH=/usr/local/bin:${PATH}
 export LD_LIBRARY_PATH=/usr/local/lib
+REFERENCE=${REFERENCE_DIR}/${REFERENCE_FILE}
 OUTPUT_PREF=${OUTPUT_DIR}/${SAMPLE1}
 SAMTOOLS=/usr/local/bin/samtools
-BLAT=/tools/userApps/bin/blat
+BWA=/usr/bin/bwa
 
 mkdir -p ${OUTPUT_DIR}
 
@@ -25,8 +26,8 @@ if [ _${SAMPLE2} = "_None" ]; then
     fi
     fisher single -o ${OUTPUT_PREF}.fisher_mutations.txt --ref_fa ${REFERENCE} -1 ${INPUT_BAM1} --samtools_path ${SAMTOOLS} ${FISHER_SINGLE_OPTION} "${FISHER_SINGLE_SAMTOOLS}"
 
-    # Local realignment using blat. The candidate mutations are varidated.
-    mutfilter realignment --target_mutation_file ${OUTPUT_PREF}.fisher_mutations.txt -1 ${INPUT_BAM1} --output ${OUTPUT_PREF}.realignment_mutations.txt --ref_genome ${REFERENCE} --blat_path ${BLAT} ${REALIGNMENT_OPTION}
+    # Local realignment using bwa. The candidate mutations are varidated.
+    mutfilter realignment --target_mutation_file ${OUTPUT_PREF}.fisher_mutations.txt -1 ${INPUT_BAM1} --output ${OUTPUT_PREF}.realignment_mutations.txt --ref_genome ${REFERENCE} --bwa_path ${BWA} ${REALIGNMENT_OPTION}
 
     # Annotation if the candidate is on the simplerepeat. 
     mutfilter simplerepeat --target_mutation_file ${OUTPUT_PREF}.realignment_mutations.txt --output ${OUTPUT_PREF}.simplerepeat_mutations.txt --simple_repeat_db ${ANNOTATION_DB}/simpleRepeat.bed.gz
@@ -55,8 +56,8 @@ else
         cp ${OUTPUT_PREF}.fisher_mutations.txt ${OUTPUT_PREF}.fisher_hotspot_mutations.txt
     fi
     
-    # Local realignment using blat. The candidate mutations are varidated.
-    mutfilter realignment --target_mutation_file ${OUTPUT_PREF}.fisher_hotspot_mutations.txt -1 ${INPUT_BAM1} -2 ${INPUT_BAM2} --output ${OUTPUT_PREF}.realignment_mutations.txt --ref_genome ${REFERENCE} --blat_path ${BLAT} ${REALIGNMENT_OPTION}
+    # Local realignment using bwa. The candidate mutations are varidated.
+    mutfilter realignment --target_mutation_file ${OUTPUT_PREF}.fisher_hotspot_mutations.txt -1 ${INPUT_BAM1} -2 ${INPUT_BAM2} --output ${OUTPUT_PREF}.realignment_mutations.txt --ref_genome ${REFERENCE} --bwa_path ${BWA} ${REALIGNMENT_OPTION}
     
     # Annotation if the candidate is near Indel. 
     if [ "_${INDEL_SAMTOOLS}" != "_" ]; then

@@ -30,9 +30,10 @@ class Fusionfusion(abstract_task.Abstract_task):
                                   "--output-recursive OUTPUT_DIR",
                                   "--env OPTION",
                                   "--env FILT_OPTION",
-                                  "--input REFERENCE",
+                                  "--input-recursive REFERENCE_DIR",
+                                  "--env REFERENCE_FILE",
                                   "--input-recursive MERGED_COUNT_DIR",
-                                  "--env PANEL_NAME"]) 
+                                  "--env PANEL_NAME"])
                                   + "\n")
 
             for sample, panel_name  in sample_conf.fusion:
@@ -45,7 +46,8 @@ class Fusionfusion(abstract_task.Abstract_task):
                           output_dir + "/fusion/" + sample,
                           param_conf.get("fusionfusion", "fusionfusion_option"),
                           param_conf.get("fusionfusion", "filt_option"),
-                          param_conf.get("fusionfusion", "reference")]
+                          param_conf.get("fusionfusion", "reference_dir"),
+                          param_conf.get("fusionfusion", "reference_file")]
 
                 if panel_name != None:
                      record.append(output_dir + "/fusion/control_panel/" + panel_name)

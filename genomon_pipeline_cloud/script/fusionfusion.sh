@@ -3,6 +3,7 @@
 set -o errexit
 set -o xtrace
 
+REFERENCE=${REFERENCE_DIR}/${REFERENCE_FILE}
 OUTPUT_PREF=${OUTPUT_DIR}/${SAMPLE}
 mkdir -p ${OUTPUT_DIR}
 
