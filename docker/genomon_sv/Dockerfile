@@ -30,16 +30,16 @@ RUN pip install annot_utils==0.2.1
 RUN pip install pysam==0.15
 RUN pip install numpy==1.15.1
 RUN pip install scipy==1.1.0
-RUN pip install genomon_sv==0.6.0rc1
+RUN pip install edlib==1.3.8.post1
+
+RUN git clone -b feature/edlib https://github.com/chrovis-genomon/GenomonSV.git && \
+    cd GenomonSV && \
+    python setup.py install
 
 # for blat
 RUN apt-get update && apt-get install -y \
     libkrb5-3 \
     libpng12-0
-
-RUN cd  /usr/local/bin && \
-    wget http://hgdownload.cse.ucsc.edu/admin/exe/linux.x86_64/blat/blat
-RUN chmod a+x /usr/local/bin/blat
 
 # sv_utils
 RUN pip install sv_utils==0.5.1
