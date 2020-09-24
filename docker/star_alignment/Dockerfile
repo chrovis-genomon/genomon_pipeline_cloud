@@ -15,9 +15,9 @@ RUN wget https://github.com/alexdobin/STAR/archive/2.7.6a.tar.gz && \
 ##########
 # Samtools
 
-RUN wget https://github.com/samtools/samtools/releases/download/1.7/samtools-1.7.tar.bz2 && \
-    tar jxvf samtools-1.7.tar.bz2 && \
-    cd samtools-1.7 && \
+RUN wget https://github.com/samtools/samtools/releases/download/1.11/samtools-1.11.tar.bz2 && \
+    tar jxvf samtools-1.11.tar.bz2 && \
+    cd samtools-1.11 && \
     ./configure --without-curses && make && make install
 
 
