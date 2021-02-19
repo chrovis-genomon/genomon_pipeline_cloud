@@ -1,4 +1,4 @@
-FROM python:3.8.3-slim-buster AS builder
+FROM python:3.9.1-slim-buster AS builder
 WORKDIR /root
 RUN apt-get update && \
   apt-get install -y --no-install-recommends git=1:2.* && \
@@ -8,10 +8,10 @@ RUN apt-get update && \
   git clone --depth=1 -b v0.0.19 https://github.com/aokad/ecsub.git && \
   rm -rf /root/ecsub/.git
 
-FROM python:3.8.3-slim-buster AS genomon_pipeline_cloud
+FROM python:3.9.1-slim-buster AS genomon_pipeline_cloud
 LABEL maintainer="aokad <aokad@hgc.jp>"
 COPY --from=builder /usr/local/bin /usr/local/bin
-COPY --from=builder /usr/local/lib/python3.8/site-packages /usr/local/lib/python3.8/site-packages
+COPY --from=builder /usr/local/lib/python3.9/site-packages /usr/local/lib/python3.9/site-packages
 COPY --from=builder /root/ecsub /root/ecsub
 WORKDIR /root/ecsub
 RUN python setup.py build install
