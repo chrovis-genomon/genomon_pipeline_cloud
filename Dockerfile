@@ -2,7 +2,7 @@ FROM python:3.9.1-slim-buster AS builder
 WORKDIR /root
 RUN apt-get update && \
   apt-get install -y --no-install-recommends git=1:2.* && \
-  pip install awscli==1.18.91 boto3==1.14.14 pyyaml==5.3.1 && \
+  pip install awscli==1.18.91 boto3==1.17.11 pyyaml==5.3.1 && \
   apt-get clean && \
   rm -rf /var/lib/apt/lists/* && \
   git clone --depth=1 -b v0.0.19 https://github.com/aokad/ecsub.git && \
