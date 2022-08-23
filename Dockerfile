@@ -5,7 +5,7 @@ RUN apt-get update && \
   pip install awscli==1.19.11 boto3==1.17.11 pyyaml==5.3.1 && \
   apt-get clean && \
   rm -rf /var/lib/apt/lists/* && \
-  git clone --depth=1 -b feature/on-demand-retry https://github.com/chrovis-genomon/ecsub.git && \
+  git clone --depth=1 -b fix/python3-compat https://github.com/chrovis-genomon/ecsub.git && \
   rm -rf /root/ecsub/.git
 
 FROM python:3.9.1-slim-buster AS genomon_pipeline_cloud
