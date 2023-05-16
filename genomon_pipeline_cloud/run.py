@@ -121,33 +121,36 @@ def run(args):
         import genomon_pipeline_cloud.tasks.mutation_call as mutation_call
         import genomon_pipeline_cloud.tasks.genomon_qc as genomon_qc
         import genomon_pipeline_cloud.tasks.pmsignature as pmsignature
-        
-        bwa_alignment_task = bwa_alignment.Bwa_alignment(args.output_dir, tmp_dir, sample_conf, param_conf, run_conf)
-        p_bwa = multiprocessing.Process(target = batch_engine.execute, args = (bwa_alignment_task,))
 
-        sv_parse_task = sv_parse.SV_parse(args.output_dir, tmp_dir, sample_conf, param_conf, run_conf)
-        sv_merge_task = sv_merge.SV_merge(args.output_dir, tmp_dir, sample_conf, param_conf, run_conf)
-        sv_filt_task = sv_filt.SV_filt(args.output_dir, tmp_dir, sample_conf, param_conf, run_conf)
-        p_sv = multiprocessing.Process(target = batch_engine.seq_execute, args = ([sv_parse_task,sv_merge_task,sv_filt_task],))
-
-        mutation_call_task = mutation_call.Mutation_call(args.output_dir, tmp_dir, sample_conf, param_conf, run_conf)
-        pmsignature_task = pmsignature.Pmsignature(args.output_dir, tmp_dir, sample_conf, param_conf, run_conf)
-        p_mutation = multiprocessing.Process(target = batch_engine.seq_execute, args = ([mutation_call_task,pmsignature_task],))
-
-        qc_task = genomon_qc.Genomon_qc(args.output_dir, tmp_dir, sample_conf, param_conf, run_conf)
-        p_qc = multiprocessing.Process(target = batch_engine.execute, args = (qc_task,))
+        try:
         
-        p_bwa.start()
-        p_bwa.join()
-        
-        p_sv.start()
-        p_mutation.start()
-        p_qc.start()
+            bwa_alignment_task = bwa_alignment.Bwa_alignment(args.output_dir, tmp_dir, sample_conf, param_conf, run_conf)
+            p_bwa = multiprocessing.Process(target = batch_engine.execute, args = (bwa_alignment_task,))
 
-        p_sv.join()
-        p_mutation.join()
-        p_qc.join()
+            sv_parse_task = sv_parse.SV_parse(args.output_dir, tmp_dir, sample_conf, param_conf, run_conf)
+            sv_merge_task = sv_merge.SV_merge(args.output_dir, tmp_dir, sample_conf, param_conf, run_conf)
+            sv_filt_task = sv_filt.SV_filt(args.output_dir, tmp_dir, sample_conf, param_conf, run_conf)
+            p_sv = multiprocessing.Process(target = batch_engine.seq_execute, args = ([sv_parse_task,sv_merge_task,sv_filt_task],))
+
+            mutation_call_task = mutation_call.Mutation_call(args.output_dir, tmp_dir, sample_conf, param_conf, run_conf)
+            pmsignature_task = pmsignature.Pmsignature(args.output_dir, tmp_dir, sample_conf, param_conf, run_conf)
+            p_mutation = multiprocessing.Process(target = batch_engine.seq_execute, args = ([mutation_call_task,pmsignature_task],))
+
+            qc_task = genomon_qc.Genomon_qc(args.output_dir, tmp_dir, sample_conf, param_conf, run_conf)
+            p_qc = multiprocessing.Process(target = batch_engine.execute, args = (qc_task,))
         
+            p_bwa.start()
+            p_bwa.join()
+        
+            p_sv.start()
+            p_mutation.start()
+            p_qc.start()
+
+            p_sv.join()
+            p_mutation.join()
+            p_qc.join()
+        except Exception as e:
+            print(e)
     
     # paplot stage
     import genomon_pipeline_cloud.tasks.paplot as paplot
